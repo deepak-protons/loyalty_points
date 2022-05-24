@@ -5,7 +5,7 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.string :email
       t.float :spends
       t.integer :loyalty_points
-      t.integer :role
+      t.integer :role, default: 0
       t.string :time_zone
 
       t.timestamps
