@@ -1,7 +1,7 @@
 class PurchasesController < ApplicationController
   def create
     user = find_user
-    response = CreatePaymentOperation.call(user, amount)
+    CreatePaymentOperation.call(user, amount)
   end
 
   private

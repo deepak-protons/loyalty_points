@@ -1,6 +1,6 @@
-module CreatePointsOperation
+module UpdatePointsOperation
   class << self
-    def call(payment, error_tracker: OperationUtils::ErrorTracker.new)
+    def call(user, payment, error_tracker: OperationUtils::ErrorTracker.new)
       begin
         result = process(user, payment, error_tracker)
       rescue OperationUtils::Exceptions::UpdatePointsOperationError => e
@@ -57,11 +57,10 @@ module CreatePointsOperation
     end
 
     def is_user_accumulates_100_points_in_one_calendar_month(user, payment)
-      user_audits = Audited::Audit.where(auditable_type: 'User')
-                      .where('created_at': Time.now.beginning_of_month..Time.now.end_of_month)
-                      .order(:created_at)
+      user_audits = user.audits.where('created_at': Time.now.beginning_of_month..Time.now.end_of_month)
+                        .order(:created_at)
       
-                      return false if user_audits.none?
+      return false if user_audits.none?
 
       current_month_earned_loyalty_points = 
                       user_audits.last.user.loyalty_points - user_audits.first.user.loyalty_points
