@@ -11,11 +11,11 @@ class Payment < ApplicationRecord
 
   private
 
-  def first_payment_at
-    Payment.order(created_at: :asc).created_at
+  def self.first_payment_at
+    Payment.order(created_at: :asc).first.created_at
   end
 
-  def first_payment_in_utc_on
+  def self.first_payment_in_utc_on
     first_payment_at.utc.to_date
   end
 

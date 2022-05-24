@@ -65,9 +65,10 @@ ActiveRecord::Schema.define(version: 2022_05_23_152550) do
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email"
-    t.float "spends"
-    t.integer "loyalty_points"
-    t.integer "role"
+    t.date "dob"
+    t.float "spends", default: 0.0
+    t.integer "loyalty_points", default: 0
+    t.integer "role", default: 0
     t.string "time_zone"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

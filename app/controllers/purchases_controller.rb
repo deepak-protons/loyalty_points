@@ -1,7 +1,8 @@
 class PurchasesController < ApplicationController
   def create
     user = find_user
-    CreatePaymentOperation.call(user, amount)
+    response = CreatePaymentOperation.call(user, amount, currency: currency)
+    render json: response
   end
 
   private
@@ -12,6 +13,10 @@ class PurchasesController < ApplicationController
 
   def amount
     params[:amount]
+  end
+
+  def currency
+    params[:currency]
   end
   
   # end of private
